@@ -1,5 +1,5 @@
 
-# First Question: Identifying Duplicate Visitors  
+# Question 1: Are they duplicate visitors in the analytics table?
 
 SQL Queries:
 
@@ -9,11 +9,12 @@ FROM analytics
 GROUP BY fullVisitorId, visitId, visitnumber### Second Question: Calculating Bounce Rate  
 ```
 
+
 ![Sample Output](/Users/renudinesh/Desktop/Data Science Pictures/Screen Shot 2025-03-06 at 9.55.48 PM.png)
 
-Answer: 
 
-## Second Question: What is the bounce rate (percentage of visitors who leave after viewing only one page)?
+
+# Question 2: What is the bounce rate (percentage of visitors who leave after viewing only one page)?
 
 
 SQL Queries:
@@ -25,12 +26,13 @@ FROM cleaned_analytics;
 ```
 
 
-Answer:
+
+![Sample Output](/Users/renudinesh/Desktop/Data Science Pictures/Screen Shot 2025-03-06 at 9.58.10 PM.png)
 
 
-### Third Question: How many sessions can we classify as 'bounces' (i.e., sessions with no time spent on the site) across all cities in the dataset?
+# Question 3: How many sessions can we classify as 'bounces' (i.e., sessions with no time spent on the site) across all cities in the dataset?
 
-SQL Queries:
+
 
 ```sql
 SELECT a.city,
@@ -42,13 +44,14 @@ GROUP BY a.city
 ORDER BY bounce_count DESC;
 ```
 
-Answer:
 
 
+![Sample Output](/Users/renudinesh/Desktop/Data Science Pictures/Screen Shot 2025-03-06 at 9.58.50 PM.png)
 
-## Question 4: What are the top traffic sources (organic, paid, direct, referral)?
 
-SQL Queries:
+# Question 4: What are the top traffic sources (organic, paid, direct, referral)?
+
+
 
 ```sql
 SELECT channelgrouping,
@@ -58,13 +61,13 @@ GROUP BY channelgrouping
 ORDER BY unique_visitors DESC;
 ```
 
-Answer:
 
 
+![Sample Output](/Users/renudinesh/Desktop/Data Science Pictures/Screen Shot 2025-03-06 at 9.59.59 PM.png)
 
-Question 5: Which product categories receive the most views?
+# Question 5: Which product categories receive the most views?
 
-SQL Queries:
+
 
 ```sql
 SELECT productsku,
@@ -76,4 +79,6 @@ ORDER BY view_count DESC
 LIMIT 10;
 ```
 
-Answer:
+
+
+![Sample Output](/Users/renudinesh/Desktop/Data Science Pictures/Screen Shot 2025-03-06 at 10.01.30 PM.png)
