@@ -9,7 +9,7 @@
    Similarly, inconsistencies in `productSku` across `All_sessions`, `sales_report`, and `sales_by_sku` can make product-level analysis unreliable. If sales data isn’t properly linked across these tables, it could lead to inaccurate revenue calculations and misleading business insights.
 
 3. **Duplicate Entries**:  
-   Duplicate entries are another major concern. If the same `fullVisitorId` and `visitId` appear multiple times, session counts may be inflated, throwing off key performance metrics. 
+   Duplicate entries are another major concern. If the same `fullVisitorId`  appear multiple times, session counts could be inflated, and theryby throw off key performance metrics. 
 
 4. **Discrepancies in Sales Data**:  
    Lastly, discrepancies in `total_ordered` values between `sales_report` and `sales_by_sku` present a risk. If the total number of products sold doesn’t match across these reports, it could signal missing transactions or aggregation errors.
@@ -43,8 +43,8 @@ LEFT JOIN analytics t
 ON a.fullVisitorId = t.fullVisitorId 
 AND a.visitId = t.visitId
 WHERE t.fullVisitorId IS NULL;
-This query identifies 11,375 visitor sessions from All_sessions with no matching entry in analytics.
 ```
+- This query identifies 11,375 visitor sessions from All_sessions with no matching entry in analytics.
 
 # **2. Counting Total Sessions:**
 
@@ -56,31 +56,48 @@ SELECT
     (SELECT COUNT(*) FROM analytics) AS analytics_count;
 ```
 
-- This query reveals a large difference in sessions between the two tables.
+- This query reveals a large difference in sessions between the two tables (13429 in all_sessions and 1444 in analytics)
 
 # **3. Analyzing for Duplicates:**
 
 ## To identify duplicate entries in All_sessions:
 
 ```sql
-SELECT fullVisitorId, visitId, COUNT(*) 
+SELECT fullVisitorId,  COUNT(*) 
 FROM All_sessions 
-GROUP BY fullVisitorId, visitId 
+GROUP BY fullVisitorId, 
 HAVING COUNT(*) > 1;
 ```
 
-- This query identifies duplicates in All_sessions, which were removed using DISTINCT in the cleaned_all_sessions view.
+- This query identifies duplicates in All_sessions prior to data cleaning. 
 
 ## To identify duplicate entries in analytics:
 
 ```sql
-SELECT fullVisitorId, visitId, COUNT(*) 
+SELECT fullVisitorId,  COUNT(*) 
 FROM analytics 
-GROUP BY fullVisitorId, visitId 
+GROUP BY fullVisitorId, 
 HAVING COUNT(*) > 1;
 ```
 
-- This query identifies duplicates in analytics, which were removed using DISTINCT in the cleaned_analytics view.
+- This query identifies duplicates in analytics prior to data cleaning. 
+
+## To check if duplicated data (fullvisitorid) had been removed post data cleaning.  
+
+```sql
+SELECT fullvisitorid, COUNT(*)
+FROM all_sessions
+GROUP BY fullvisitorid
+HAVING COUNT(*) > 1;
+```
+
+```sql
+SELECT fullvisitorid, COUNT(*)
+FROM analytics
+GROUP BY fullvisitorid
+HAVING COUNT(*) > 1;
+```
+- Yielded 0 results for both.
 
 
 # **4. Product Data Validation:**
@@ -139,6 +156,8 @@ ORDER BY SUM(total_ordered) DESC;
 ```
 
 - This query yields 454 rows from sales_report. This indicates a mismatch in the total_ordered column between the two tables.
+
+
 
 
 
