@@ -91,7 +91,7 @@ After reviewing the dataset, I carried out several cleaning steps:
 ## Challenges
 
 - One of the biggest hurdles was dealing with redundant tables and missing values. This made the cleaning process more complex than expected. Many columns contained overlapping information, such as product quantity and total ordered, but their values were often inconsistent. This required careful judgment to decide which data to trust. In some cases, I eliminated certain tables entirely to streamline the analysis.
-- Duplicate and null values were another significant challenge. Despite the large dataset, many queries returned minimal results because so much data was incomplete or unreliable. For instance, the United States had enough data to generate meaningful insights, but many other countries had very little usable data.
+- Duplicate and null values were another significant challenge. Despite the large dataset, many queries returned minimal results because so much data was incomplete or unreliable which limited the depth of analysis in certain areas. For instance, the United States had enough data to generate meaningful insights, but many other countries had very little usable data.
 - Finding the best approach to clean the data took multiple iterations. Initially, I used view tables to organize and refine the dataset, but I had to make several adjustments along the way to ensure the data was accurate and consistent.
 
 ## Future Goals
