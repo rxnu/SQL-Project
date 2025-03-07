@@ -21,7 +21,8 @@
    
 ### Queries: Below are the SQL queries you used to clean your data.
 
-#### Creating View Tables that Cleaned the Data:
+### Deleting Duplicates from fullvisitorid (primary key)
+
 
 ```sql
 WITH Duplicates AS (
@@ -36,6 +37,7 @@ WHERE fullvisitorid IN (
     WHERE rn > 1
 );
 ```
+### Creating View Tables that Cleaned the Data:
 
 ```sql
 CREATE OR REPLACE VIEW cleaned_all_sessions AS
